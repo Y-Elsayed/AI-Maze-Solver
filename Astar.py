@@ -10,8 +10,10 @@ def h(cell1, cell2):
     from cell1 to cell2
 
     Arguments:
-        cell1 (tuple): The 1st cell.
-        cell2 (tuple): The 2nd cell.
+        cell1 (tuple): The 1st cell. Which will be the cell the agent is
+                       standing on.
+        cell2 (tuple): The 2nd cell. Which is the cell the agent is trying
+                       to reach.
     '''
     x1, y1 = cell1
     x2, y2 = cell2
@@ -26,7 +28,11 @@ def Astar(maze, startingCell=None, goalCell=(1,1)):
     the goal.
 
     Arguments:
-        maze (): The maze.
+        maze (class): The maze class from the pyamaze maze module.
+        startingCell (tuple): A tuple of the starting cell for the algorithm to
+                              start from. Defaults to the bottom right of the maze.
+        goalCell (tuple): A tuple of the goal cell for the algorithm to reach. Defaults
+                          to the top left of the maze.
     '''
     if startingCell == None:
         startingCell = (maze.rows, maze.cols)
