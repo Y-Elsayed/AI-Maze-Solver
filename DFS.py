@@ -3,7 +3,6 @@ from pyamaze import maze, agent, COLOR
 def DFS(maze, start = None, goal = (1,1)):
     if start == None:
         start = (maze.rows, maze.cols)
-
     frontier = [start]
     explored = [start]
 
@@ -26,7 +25,6 @@ def DFS(maze, start = None, goal = (1,1)):
                     childCell = (currentCell[0] + 1, currentCell[1])
                 if childCell in explored:
                     continue
-
                 frontier.append(childCell)
                 explored.append(childCell)
                 bfsPath[childCell] = currentCell
