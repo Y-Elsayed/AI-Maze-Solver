@@ -1,4 +1,4 @@
-from pyamaze import maze, agent, COLOR
+from mazeworld import maze, agent, COLOR
 
 def BFS(maze, start = None, goal = (1,1)):
     if start == None:

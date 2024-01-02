@@ -1,4 +1,4 @@
-from pyamaze import maze, agent, COLOR
+from mazeworld import maze, agent, COLOR
 from queue import PriorityQueue
 
 def h(cell1, cell2):
