@@ -1,6 +1,6 @@
 from pyamaze import maze, agent, COLOR
 
-def DFS(maze, start = None, goal = (1,1)):
+def BFS(maze, start = None, goal = (1,1)):
     if start == None:
         start = (maze.rows, maze.cols)
 
@@ -11,10 +11,10 @@ def DFS(maze, start = None, goal = (1,1)):
     searchPath = []
 
     while len(frontier) > 0:
-        currentCell = frontier.pop()
+        currentCell = frontier.pop(0)
         if currentCell == goal:
             break
-        for d in 'WSEN':
+        for d in 'ENSW':
             if maze.maze_map[currentCell][d] == True:
                 if d == 'E':
                     childCell = (currentCell[0], currentCell[1] + 1)

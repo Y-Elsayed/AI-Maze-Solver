@@ -1,6 +1,4 @@
-# Using the maze generation and agents from the pyamaze
-# to help in visualize the algorithm
-# from pyamaze import maze, agent, COLOR
+from pyamaze import maze, agent, COLOR
 from queue import PriorityQueue
 
 def h(cell1, cell2):
@@ -20,7 +18,7 @@ def h(cell1, cell2):
 
     return (abs(x1-x2) + abs(y1-y2))
 
-def Astar(maze, startingCell=None, goalCell=(1,1)):
+def Astar(maze, start=None, goal=(1,1)):
     '''A* Algorithm
     
     The search algorithm to be used in our maze search traversing.
@@ -34,31 +32,31 @@ def Astar(maze, startingCell=None, goalCell=(1,1)):
         goalCell (tuple): A tuple of the goal cell for the algorithm to reach. Defaults
                           to the top left of the maze.
     '''
-    if startingCell == None:
-        startingCell = (maze.rows, maze.cols)
+    if start == None:
+        start = (maze.rows, maze.cols)
 
     open = PriorityQueue()
     # (heuristic cost + g cost, heuristic cost, cell itself)
-    open.put((h(startingCell, goalCell) + 0, h(startingCell, goalCell), startingCell))
+    open.put((h(start, goal) + 0, h(start, goal), start))
     
     # The path that the algorithm traverses
     aPath = {}
     
     # The path that the algorithm has searched
-    searchPath = [startingCell]
+    searchPath = [start]
 
     # Calculates the inital scores to infinity and place the
     # g(startingCell) to 0 and calculates the heuristic for the
     # startingCell
     g_score = {cell: float('infinity') for cell in maze.grid}
-    g_score[startingCell] = 0
+    g_score[start] = 0
     f_score = {cell: float('infinity') for cell in maze.grid}
-    f_score[startingCell] = h(startingCell, goalCell)
+    f_score[start] = h(start, goal)
 
     while not open.empty():
         currentCell = open.get()[2] # Gets the third element aka the cell itself
         searchPath.append(currentCell)
-        if currentCell == goalCell:
+        if currentCell == goal:
             # If the goal is found exit the loop
             break
 
@@ -86,28 +84,9 @@ def Astar(maze, startingCell=None, goalCell=(1,1)):
     # After reaching to the goal we traverse back to the starting point
     # to figure out the optimal path to be taken
     forwardPath = {}
-    fcell = goalCell
-    while fcell != startingCell:
+    fcell = goal
+    while fcell != start:
         forwardPath[aPath[fcell]] = fcell
         fcell = aPath[fcell]
     
     return searchPath, aPath, forwardPath
-
-# This block of code is to visualize the use of the
-# A* algorithm
-
-# if __name__ == '__main__':
-#     m = maze(15,15)
-#     m.CreateMaze(loopPercent=50, loadMaze="Astar_test2.csv")
-
-#     searchPath, astarPath, forwardPath = Astar(m)
-
-#     searchAgent = agent(m, footprints=True, filled=True, color=COLOR.blue)
-#     astarAgent = agent(m, 1, 1, footprints=True, filled=True, color=COLOR.yellow, goal=(m.rows, m.cols))
-#     forwardAgent = agent(m, footprints=True, color=COLOR.dark)
-
-#     m.tracePath({searchAgent:searchPath}, delay=250)
-#     m.tracePath({astarAgent:astarPath}, delay=200)
-#     m.tracePath({forwardAgent:forwardPath}, delay=250)
-
-#     m.run()
